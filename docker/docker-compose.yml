@@ -26,7 +26,6 @@ services:
   symfony:
     depends_on:
       - db
-    #image: wordpress:latest
     build:
       context: ./
       dockerfile: Dockerfile
