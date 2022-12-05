@@ -21,13 +21,18 @@ RUN apt-get update \
      && apt-get install -y libzip-dev \
      && docker-php-ext-install zip
 
-RUN apt-get update
-RUN apt-get -y install nodejs
+RUN apt-get -y update
+RUN apt-get -y install git
 
-RUN npm install 
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
+RUN apt install -y nodejs
+
+WORKDIR /var/www/html
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
+RUN composer install
 
+RUN npm install 
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
@@ -39,7 +44,10 @@ COPY ./xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 EXPOSE 8080
 
 // Check with github connenction and after expose
+
 RUN curl -sS https://get.symfony.com/cli/installer | bash
+
 RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+
 RUN git config --global user.email "nick.koutelias@gmail.com" \
     && git config --global user.name "Nick Kout"
