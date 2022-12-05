@@ -16,7 +16,7 @@ services:
     image: phpmyadmin:latest
     restart: always
     ports:
-      - "3026:80"
+      - "3306:80"
     environment:
       MARIADB_ROOT_PASSWORD: symfony
       MARIADB_USER: symfony
@@ -39,6 +39,7 @@ services:
 volumes:
   db_data: {}
   symfony: {}
+
 
 
 
