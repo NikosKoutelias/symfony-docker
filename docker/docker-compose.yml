@@ -21,8 +21,7 @@ services:
       MARIADB_ROOT_PASSWORD: symfony
       MARIADB_USER: symfony
       MARIADB_PASSWORD: symfony
-      
-
+     
   symfony:
     depends_on:
       - db
@@ -30,7 +29,7 @@ services:
       context: ./
       dockerfile: Dockerfile
     volumes:
-      - ../symfony:/var/www/html
+      - ../symfony:/var/www/html:rw
     ports:
       - "8080:80"
     expose:
