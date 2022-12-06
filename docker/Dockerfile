@@ -1,6 +1,6 @@
 FROM php:8.1-apache
 
-COPY example.com.conf /etc/apache2/sites-available/
+RUN a2enmod rewrite
 
 RUN apt-get update \
     && apt-get install sudo
@@ -13,6 +13,8 @@ RUN apt update \
     && docker-php-ext-configure zip \
     && docker-php-ext-install zip \
     && docker-php-ext-install gd
+
+ADD /custom-php.ini /usr/local/etc/php/conf.d/custom-php.ini
 
 RUN apt-get -y update
 RUN apt-get -y install git
@@ -42,5 +44,7 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash
 RUN git config --global user.email "nick.koutelias@gmail.com" \
     && git config --global user.name "Nick Kout"
 
-RUN sudo a2ensite example.com.conf
-RUN sudo a2dissite 000-default.conf
+# RUN sudo a2ensite example.com.conf
+# RUN sudo a2dissite 000-default.conf
+
+COPY httpd.conf /etc/apache2/sites-enabled/000-default.conf
