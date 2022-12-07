@@ -33,18 +33,16 @@ RUN chmod +x /usr/local/bin/install-php-extensions && \
     install-php-extensions xdebug
 
 COPY ./xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+COPY ./error_reporting.ini /usr/local/etc/php/conf.d/error_reporting.ini
 
 EXPOSE 8080
 
-# Check with github connenction and after expose
+# Check github connenction and after expose
 
-RUN curl -sS https://get.symfony.com/cli/installer | bash
-
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | sudo -E bash
+RUN sudo apt install symfony-cli
 
 RUN git config --global user.email "nick.koutelias@gmail.com" \
     && git config --global user.name "Nick Kout"
-
-# RUN sudo a2ensite example.com.conf
-# RUN sudo a2dissite 000-default.conf
 
 COPY httpd.conf /etc/apache2/sites-enabled/000-default.conf
