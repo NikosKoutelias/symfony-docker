@@ -33,9 +33,10 @@ RUN chmod +x /usr/local/bin/install-php-extensions && \
     install-php-extensions xdebug
 
 COPY ./xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-COPY ./error_reporting.ini /usr/local/etc/php/conf.d/error_reporting.ini
+#COPY ./error_reporting.ini /usr/local/etc/php/conf.d/error_reporting.ini
 
 EXPOSE 8080
+EXPOSE 9003
 
 # Check github connenction and after expose
 
