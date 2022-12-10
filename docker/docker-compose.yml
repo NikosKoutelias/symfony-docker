@@ -35,7 +35,6 @@ services:
     ports:
       - "8080:80"
     expose:
-      - 9003
       - 8080
     restart: unless-stopped 
 
