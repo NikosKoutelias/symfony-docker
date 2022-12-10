@@ -1,5 +1,7 @@
 FROM php:8.1-apache
 
+COPY httpd.conf /etc/apache2/sites-enabled/000-default.conf
+
 RUN a2enmod rewrite
 
 RUN apt-get update \
@@ -24,6 +26,11 @@ RUN apt install -y nodejs
 
 WORKDIR /var/www/html
 
+RUN apt-get purge -y g++ \
+    && apt-get autoremove -y \
+    && rm -r /var/lib/apt/lists/* \
+    && rm -rf /tmp/* 
+
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
@@ -33,10 +40,9 @@ RUN chmod +x /usr/local/bin/install-php-extensions && \
     install-php-extensions xdebug
 
 COPY ./xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-#COPY ./error_reporting.ini /usr/local/etc/php/conf.d/error_reporting.ini
+COPY ./error_reporting.ini /usr/local/etc/php/conf.d/error_reporting.ini
 
 EXPOSE 8080
-EXPOSE 9003
 
 # Check github connenction and after expose
 
@@ -45,5 +51,3 @@ RUN sudo apt install symfony-cli
 
 RUN git config --global user.email "nick.koutelias@gmail.com" \
     && git config --global user.name "Nick Kout"
-
-COPY httpd.conf /etc/apache2/sites-enabled/000-default.conf

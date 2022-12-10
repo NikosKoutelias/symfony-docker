@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,6 +11,7 @@ class VinylController extends AbstractController
     #[Route('/', name: 'app_homepage')]
     public function homepage(): Response
     {
+        
         $tracks = [
             ['song' => 'Gangsta\'s Paradise', 'artist' => 'Coolio'],
             ['song' => 'Waterfalls', 'artist' => 'TLC'],
