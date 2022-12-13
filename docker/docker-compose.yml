@@ -30,8 +30,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ../symfony:/var/www/html:rw
-    extra_hosts:
-      - host.docker.internal:host-gateway
     ports:
       - "8080:80"
     expose:
