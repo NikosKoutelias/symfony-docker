@@ -36,10 +36,10 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
-RUN chmod +x /usr/local/bin/install-php-extensions && \ 
-    install-php-extensions xdebug
+# RUN chmod +x /usr/local/bin/install-php-extensions && \ 
+#     install-php-extensions xdebug
 
-COPY ./xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+# COPY ./xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 COPY ./error_reporting.ini /usr/local/etc/php/conf.d/error_reporting.ini
 
 EXPOSE 8080
