@@ -1,3 +1,4 @@
 docker/db_data/
 .vscode
 symfony/*
+temp
