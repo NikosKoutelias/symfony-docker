@@ -2,6 +2,7 @@ version: "3.9"
     
 services:
   db:
+    container_name: db
     image: mariadb:latest
     volumes:
       - ./db_data:/var/lib/mysql
@@ -28,8 +29,7 @@ services:
       - db
      
   symfony:
-    depends_on:
-      - db
+    restart: unless-stopped
     build:
       context: ./
       dockerfile: Dockerfile
@@ -39,11 +39,19 @@ services:
       - "8080:80"
     expose:
       - 8080
-    restart: unless-stopped 
+    networks:
+      - db 
+      - external-net
+    depends_on:
+      - db
 
 networks:
   db:
     driver: bridge
+  external-net:
+    external: true
+    driver: host
+
 
 # volumes:
 #   db_data: {}
