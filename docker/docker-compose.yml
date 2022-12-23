@@ -37,21 +37,17 @@ services:
       - ../symfony:/var/www/html:rw
     ports:
       - "8080:80"
-    expose:
-      - 8080
     networks:
       - db 
-      - external-net
+      - symfony
     depends_on:
       - db
 
 networks:
   db:
     driver: bridge
-  external-net:
-    external: true
-    driver: host
-
+  symfony:
+    driver: bridge
 
 # volumes:
 #   db_data: {}
